@@ -174,6 +174,9 @@ class ThreadViewSet(_ViewMixin, DeveloperErrorViewMixin, ViewSet):
             parameter was rewritten in order to match threads (e.g. for spelling
             correction)
 
+        * view: "unread" for threads the requesting user has not read, or
+            "unanswered" for question threads with no marked answer.
+
     **POST/PATCH response values**:
 
         * id: The id of the thread
@@ -226,6 +229,7 @@ class ThreadViewSet(_ViewMixin, DeveloperErrorViewMixin, ViewSet):
                 form.cleaned_data["page_size"],
                 form.cleaned_data["topic_id"],
                 form.cleaned_data["text_search"],
+                form.cleaned_data["view"],
             )
         )
 

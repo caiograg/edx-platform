@@ -5,6 +5,7 @@ from django.core.exceptions import ValidationError
 from django.forms import (
     BooleanField,
     CharField,
+    ChoiceField,
     Field,
     Form,
     IntegerField,
@@ -45,11 +46,15 @@ class ThreadListGetForm(_PaginationForm):
     """
     A form to validate query parameters in the thread list retrieval endpoint
     """
-    EXCLUSIVE_PARAMS = ["topic_id", "text_search"]
+    EXCLUSIVE_PARAMS = ["topic_id", "text_search", "view"]
 
     course_id = CharField()
     topic_id = TopicIdField(required=False)
     text_search = CharField(required=False)
+    view = ChoiceField(
+        choices=[(choice, choice) for choice in ["unread", "unanswered"]],
+        required=False
+    )
 
     def clean_course_id(self):
         """Validate course_id"""
